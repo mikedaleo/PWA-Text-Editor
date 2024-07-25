@@ -7,7 +7,7 @@ const initdb = async () =>
         console.log('jate database already exists');
         return;
       }
-      db.createObjectStore('jate', { keyPath: 'id', autoIncrement: true });
+      db.createObjectStore('jate', { keyPath: 'id', autoIncrement: false });
       console.log('jate database created');
     },
   });
@@ -26,7 +26,7 @@ export const putDb = async (content) => {
   const store = tx.objectStore('jate');
 
   // Use the .add() method on the store to pass in the content
-  const request = store.add({ content: content });
+  const request = store.put(JSON.stringify(content));
 
   // Confirmation of request
   const result = await request;
