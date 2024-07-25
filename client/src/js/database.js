@@ -1,16 +1,17 @@
 import { openDB } from 'idb';
 
-const initdb = async () =>
+const initdb = async () => {
   openDB('jate', 1, {
     upgrade(db) {
       if (db.objectStoreNames.contains('jate')) {
         console.log('jate database already exists');
         return;
       }
-      db.createObjectStore('jate', { keyPath: 'id', autoIncrement: false });
+      db.createObjectStore('jate', { keyPath: 'id', autoIncrement: true });
       console.log('jate database created');
     },
   });
+};
 
   // Export a function to add content to the database
 export const putDb = async (content) => {
@@ -26,11 +27,11 @@ export const putDb = async (content) => {
   const store = tx.objectStore('jate');
 
   // Use the .add() method on the store to pass in the content
-  const request = store.put(JSON.stringify(content));
+  const request = store.put({ id: 1, value: content });
 
   // Confirmation of request
   const result = await request;
-  console.log('Data saved to the database', result);
+  console.log('Data saved to the database', result.value);
 };
 
 // Export a function to get data from the database
@@ -47,12 +48,12 @@ export const getDb = async () => {
   const store = tx.objectStore('jate');
 
   // Use .getAll() method to get data from the database
-  const request = store.getAll();
+  const request = store.get(1);
 
   // Confirmation of request
   const result = await request;
-  console.log('result.value', result);
-  return result;
+  console.log('result.value', result.value);
+  return result?.value;
 ;}
 
 // Start the database
