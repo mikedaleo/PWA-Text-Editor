@@ -15,7 +15,6 @@
   [License](#license)  
   [Contributing](#contributing)  
   [Questions](#questions) 
-  [Credit](#credit)
   
   
   ## <a id="usage"></a>Usage
