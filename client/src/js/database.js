@@ -31,7 +31,7 @@ export const putDb = async (content) => {
 
   // Confirmation of request
   const result = await request;
-  console.log('Data saved to the database', result.value);
+  console.log('Data saved to the database', result);
 };
 
 // Export a function to get data from the database
